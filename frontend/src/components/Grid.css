@@ -1,0 +1,33 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 40px);
+  grid-template-rows: repeat(10, 40px);
+  gap: 2px;
+  background-color: #add8e6;
+  padding: 10px;
+  border: 2px solid #0077be;
+  border-radius: 5px;
+  margin: 20px auto;
+}
+
+.grid-cell {
+  width: 40px;
+  height: 40px;
+  background-color: #f0f8ff;
+  border: 1px solid #add8e6;
+  transition: background-color 0.3s ease;
+}
+
+.grid-cell.empty:hover {
+  background-color: #0077be;
+  cursor: pointer;
+}
+
+.grid-cell.ship {
+  background-color: #0077be;
+}
+
+.grid-cell.preview {
+  background-color: #0077be;
+  opacity: 0.7;
+}

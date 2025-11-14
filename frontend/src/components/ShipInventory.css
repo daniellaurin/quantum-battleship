@@ -1,0 +1,48 @@
+.ship-inventory {
+  padding: 20px;
+  background-color: #f0f8ff;
+  color: #000000;
+  width: 250px;
+  border-left: 2px solid #0077be;
+}
+
+.ship-inventory h2 {
+  text-align: center;
+  color: #0077be;
+  margin-bottom: 20px;
+}
+
+.ship-wrapper {
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.ship-wrapper.selected {
+  background-color: #add8e6;
+  box-shadow: 0 0 10px #add8e6;
+}
+
+.ship-wrapper.selected .ship {
+  border-color: #0077be;
+  color: #000000;
+}
+
+.rotate-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #0077be;
+  border: none;
+  border-radius: 5px;
+  color: #f0f8ff;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.rotate-button:hover {
+  background-color: #005fa3;
+}
