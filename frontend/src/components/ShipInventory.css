@@ -19,8 +19,9 @@
 }
 
 .ship-wrapper.selected {
-  background-color: #add8e6;
-  box-shadow: 0 0 10px #add8e6;
+  background-color: #0077be; /* Darker blue for selection */
+  box-shadow: 0 0 15px 2px #0077be; /* Reduced spread of shadow */
+  border: 1px solid #0077be; /* Reduced border thickness */
 }
 
 .ship-wrapper.selected .ship {

@@ -1,134 +1,193 @@
 .app {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   height: 100vh;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(to bottom, 
+    #87CEEB 0%,     /* Sky blue at top */
+    #4A90E2 40%,    /* Deeper blue */
+    #2E5C8A 70%,    /* Ocean blue */
+    #1e3a5f 100%    /* Deep ocean */
+  );
 }
 
-.app::before {
-  content: '';
+.background-animations {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
-  background-color: #f0f8ff;
+  z-index: 0;
 }
 
-.game-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-  padding: 20px;
-  background-color: transparent !important;
-}
-
-.temp-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-left: 20px;
-}
-
-.temp-buttons button {
-  padding: 10px;
-  background-color: #0077be;
-  border: none;
-  border-radius: 5px;
-  color: #f0f8ff;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.cloud {
+/* Clouds */
+.background-animations .cloud {
   position: absolute;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 100px;
-  opacity: 0.8;
-  z-index: -1;
+  width: 120px;
+  height: 40px;
+  animation: float 20s infinite ease-in-out;
+  z-index: 1;
 }
 
-.cloud:before, .cloud:after {
+.background-animations .cloud::before,
+.background-animations .cloud::after {
   content: '';
   position: absolute;
-  background: #fff;
-  width: 100px;
-  height: 80px;
-  top: -15px;
-  left: 10px;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 100px;
-  transform: rotate(30deg);
 }
 
-.cloud:after {
-  width: 120px;
-  height: 120px;
-  top: -55px;
-  left: auto;
-  right: 15px;
+.background-animations .cloud::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 10px;
 }
 
-.cloud:nth-child(1) {
-  top: 20%;
-  left: -250px;
-  width: 200px;
+.background-animations .cloud::after {
+  width: 60px;
   height: 60px;
-  animation: move-clouds 35s linear infinite;
+  top: -30px;
+  right: 10px;
 }
 
-.cloud:nth-child(2) {
-  top: 40%;
-  left: -350px;
-  width: 300px;
-  height: 80px;
-  animation: move-clouds 45s linear infinite 5s;
+/* Position each cloud differently */
+.background-animations .cloud:nth-child(1) {
+  top: 20%;
+  left: -150px;
+  animation-delay: 0s;
+  animation-duration: 25s;
 }
 
-.cloud:nth-child(3) {
-  top: 60%;
+.background-animations .cloud:nth-child(2) {
+  top: 30%;
   left: -200px;
-  width: 250px;
-  height: 70px;
-  animation: move-clouds 40s linear infinite 10s;
+  animation-delay: 5s;
+  animation-duration: 30s;
+  opacity: 0.6;
 }
 
-@keyframes move-clouds {
+.background-animations .cloud:nth-child(3) {
+  top: 15%;
+  left: -100px;
+  animation-delay: 10s;
+  animation-duration: 35s;
+  opacity: 0.7;
+}
+
+ @keyframes float {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(100vw + 400px));
+    transform: translateX(calc(100vw + 200px));
   }
 }
 
+
+
+/* Birds with /\/\ flapping design */
 .birds {
   position: absolute;
-  top: 50px;
-  left: -100px;
-  width: 100px;
-  height: 100px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M10 25 C 15 20, 20 20, 25 25 C 30 30, 35 30, 40 25" stroke="%230077be" fill="none" stroke-width="2" /></svg>') 0 0 / contain no-repeat;
-  animation: move-birds 30s linear infinite;
-  z-index: -1;
+  top: 15%;
+  left: -50px;
+  animation: flyAcross 20s infinite linear;
+  z-index: 2;
 }
 
-@keyframes move-birds {
+/* Create bird shape using V pattern */
+.birds::before,
+.birds::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 3px;
+  background: #34495e;
+  border-radius: 2px;
+}
+
+/* Left wing \ */
+.birds::before {
+  transform-origin: right center;
+  animation: flapLeftWing 0.5s infinite ease-in-out;
+}
+
+/* Right wing / */
+.birds::after {
+  left: 18px;
+  transform-origin: left center;
+  animation: flapRightWing 0.5s infinite ease-in-out;
+}
+
+@keyframes flyAcross {
   0% {
-    transform: translateX(0) translateY(0);
+    left: -50px;
+    top: 15%;
   }
   25% {
-    transform: translateX(calc(25vw)) translateY(-20px);
+    top: 12%;
   }
   50% {
-    transform: translateX(calc(50vw)) translateY(0);
+    top: 18%;
   }
   75% {
-    transform: translateX(calc(75vw)) translateY(20px);
+    top: 14%;
   }
   100% {
-    transform: translateX(calc(100vw + 100px)) translateY(0);
+    left: calc(100vw + 50px);
+    top: 15%;
   }
+}
+
+@keyframes flapLeftWing {
+  0%, 100% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes flapRightWing {
+  0%, 100% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(-45deg);
+  }
+}
+
+/* Game container */
+.game-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.temp-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.temp-buttons button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #2E5C8A;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.temp-buttons button:hover {
+  background: #2E5C8A;
+  color: white;
+  transform: translateY(-2px);
 }

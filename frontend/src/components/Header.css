@@ -13,6 +13,20 @@
   margin: 0;
   font-size: 2.5em;
   text-shadow: 0 0 10px #add8e6;
+  background: linear-gradient(90deg, #0077be, #6a0dad, #0077be); /* Blue to purple gradient */
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: synthwave-gradient 5s ease infinite;
+}
+
+@keyframes synthwave-gradient {
+  0% {
+    background-position: 200% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
 }
 
 .logo-button {

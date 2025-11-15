@@ -82,10 +82,12 @@ function App() {
 
   return (
     <div className="app">
-      <div className="cloud" />
-      <div className="cloud" />
-      <div className="cloud" />
-      <div className="birds" />
+    <div className="background-animations">
+        <div className="cloud" />
+        <div className="cloud" />
+        <div className="cloud" />
+        <div className="birds" />
+      </div>
       <Header onRefresh={handleOpenRefreshModal} />
       <HamburgerMenu isOpen={isSidebarOpen} toggle={toggleSidebar} />
       <Sidebar 
