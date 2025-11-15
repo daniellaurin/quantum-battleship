@@ -92,7 +92,8 @@ Both backend applications expose RESTful API endpoints for game management, ship
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to open issues or submit pull requests.
+Ali - Daniel - Shaurya - Mujtaba
+
 
 ---
 _Built for the Qiskit 2025 Hackathon_ 🚀
