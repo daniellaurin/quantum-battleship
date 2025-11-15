@@ -9,25 +9,20 @@
 .ship-inventory h2 {
   text-align: center;
   color: #0077be;
-  margin-bottom: 20px;
-}
-
-.ship-wrapper {
-  cursor: pointer;
-  border-radius: 5px;
-  margin-bottom: 10px;
 }
 
 .ship-wrapper.selected {
-  background-color: #0077be; /* Darker blue for selection */
-  box-shadow: 0 0 15px 2px #0077be; /* Reduced spread of shadow */
-  border: 1px solid #0077be; /* Reduced border thickness */
+  background-color: #0077be;
+  box-shadow: 0 0 15px 2px #0077be;
+  border: 0px solid #0077be; 
 }
 
 .ship-wrapper.selected .ship {
-  border-color: #0077be;
+  border: 2px solid #0077be;
   color: #000000;
 }
+
+
 
 .rotate-button {
   display: block;
