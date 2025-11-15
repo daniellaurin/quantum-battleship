@@ -1,0 +1,29 @@
+.game-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ccc;
+}
+
+.turn-indicator {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: white;
+}
+
+.player-turn {
+  background-color: #28a745; /* Green */
+}
+
+.opponent-turn {
+  background-color: #6f42c1; /* Purple */
+}
+
+.turn-counter {
+  font-size: 1.2em;
+  font-weight: bold;
+}

@@ -4,24 +4,17 @@ import Ship from './Ship';
 import './ShipInventory.css';
 
 interface ShipInventoryProps {
+  ships: ShipType[];
   onSelectShip: (ship: ShipType) => void;
   onRotateShip: () => void;
   selectedShip: ShipType | null;
 }
 
-const initialShips: ShipType[] = [
-  { name: 'Carrier', size: 5, hits: 0, orientation: 'horizontal', iconPath: '/ships/carrier.png' },
-  { name: 'Battleship', size: 4, hits: 0, orientation: 'horizontal', iconPath: '/ships/battleship.png' },
-  { name: 'Cruiser', size: 3, hits: 0, orientation: 'horizontal', iconPath: '/ships/cruiser.png' },
-  { name: 'Submarine', size: 3, hits: 0, orientation: 'horizontal', iconPath: '/ships/submarine.png' },
-  { name: 'Destroyer', size: 2, hits: 0, orientation: 'horizontal', iconPath: '/ships/destroyer.png' },
-];
-
-const ShipInventory: React.FC<ShipInventoryProps> = ({ onSelectShip, onRotateShip, selectedShip }) => {
+const ShipInventory: React.FC<ShipInventoryProps> = ({ ships, onSelectShip, onRotateShip, selectedShip }) => {
   return (
     <div className="ship-inventory">
       <h2>Your Fleet</h2>
-      {initialShips.map((ship) => (
+      {ships.map((ship) => (
         <div
           key={ship.name}
           className={`ship-wrapper ${selectedShip?.name === ship.name ? 'selected' : ''}`}

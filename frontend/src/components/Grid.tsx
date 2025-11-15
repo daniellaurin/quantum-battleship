@@ -7,10 +7,12 @@ const GRID_SIZE = 10;
 interface GridProps {
   grid: CellState[][];
   selectedShip: ShipType | null;
+  allShipsPlaced: boolean;
   onPlaceShip: (coords: Coords) => void;
+  onAttack: (coords: Coords) => void;
 }
 
-const Grid: React.FC<GridProps> = ({ grid, selectedShip, onPlaceShip }) => {
+const Grid: React.FC<GridProps> = ({ grid, selectedShip, allShipsPlaced, onPlaceShip, onAttack }) => {
   const [hoveredCells, setHoveredCells] = React.useState<Coords[]>([]);
 
   const handleMouseEnter = (x: number, y: number) => {
@@ -32,7 +34,11 @@ const Grid: React.FC<GridProps> = ({ grid, selectedShip, onPlaceShip }) => {
   };
 
   const handleClick = (x: number, y: number) => {
-    onPlaceShip({ x, y });
+    if (allShipsPlaced) {
+      onAttack({ x, y });
+    } else {
+      onPlaceShip({ x, y });
+    }
   };
 
   const renderGrid = () => {
