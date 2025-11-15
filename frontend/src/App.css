@@ -86,9 +86,7 @@
   }
 }
 
-
-
-/* Birds with /\/\ flapping design */
+/* Birds with V flapping design */
 .birds {
   position: absolute;
   top: 15%;
@@ -96,6 +94,7 @@
   animation: flyAcross 20s infinite linear;
   z-index: 2;
 }
+
 
 /* Create bird shape using V pattern */
 .birds::before,
@@ -156,6 +155,35 @@
   }
   50% {
     transform: rotate(-45deg);
+  }
+}
+
+/* ASCII Fish */
+.fish {
+  position: absolute;
+  bottom: 10%;
+  left: -400px; /* Start further off-screen */
+  width: 80px;
+  height: 30px;
+  animation: swim 30s linear infinite; /* Increased duration */
+  z-index: 2;
+}
+
+.fish::before {
+  content: "><((((°>"; /* ASCII fish */
+  color: white;
+  font-size: 24px;
+  line-height: 1;
+  position: absolute;
+  white-space: nowrap;
+}
+
+@keyframes swim {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(100vw + 400px)); /* Adjusted to match new starting left */
   }
 }
 
