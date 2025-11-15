@@ -1,0 +1,195 @@
+================================================================================
+ QUANTUM BATTLESHIP SERVER - IBM HACKATHON
+ Based on Elitzur-Vaidman Bomb Tester Experiment
+================================================================================
+
+ Server Information:
+   * Running on: http://127.0.0.1:5001
+   * Quantum Backend: Qiskit AerSimulator
+   * Circuit Configuration: 5 qubits, 5 classical bits
+   * Measurements per attack: 1024 shots
+
+ Quantum Features:
+   * 5-qubit quantum circuit (one per grid position)
+   * RY gate rotations (pi/8 angle)
+   * Elitzur-Vaidman bomb tester principle
+   * Ship detection through quantum interference
+   * Probabilistic damage calculation
+
+================================================================================
+
+ * Serving Flask app 'app_quantum'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.0.0.2:5001
+[33mPress CTRL+C to quit[0m
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 138-095-945
+127.0.0.1 - - [15/Nov/2025 13:44:57] "OPTIONS /api/quantum/game/new HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:44:57] "OPTIONS /api/quantum/game/new HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:44:57] "[35m[1mPOST /api/quantum/game/new HTTP/1.1[0m" 201 -
+127.0.0.1 - - [15/Nov/2025 13:44:57] "[35m[1mPOST /api/quantum/game/new HTTP/1.1[0m" 201 -
+127.0.0.1 - - [15/Nov/2025 13:44:57] "OPTIONS /api/quantum/game/new HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:44:57] "OPTIONS /api/quantum/game/new HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:44:57] "[35m[1mPOST /api/quantum/game/new HTTP/1.1[0m" 201 -
+127.0.0.1 - - [15/Nov/2025 13:44:57] "[35m[1mPOST /api/quantum/game/new HTTP/1.1[0m" 201 -
+127.0.0.1 - - [15/Nov/2025 13:45:00] "OPTIONS /api/quantum/game/4345fcca-1ba0-42b3-8063-874cc5c7ccf0/set-ships HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:45:00] "POST /api/quantum/game/4345fcca-1ba0-42b3-8063-874cc5c7ccf0/set-ships HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:45:00] "OPTIONS /api/quantum/game/4345fcca-1ba0-42b3-8063-874cc5c7ccf0/auto-setup HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:45:00] "[35m[1mPOST /api/quantum/game/4345fcca-1ba0-42b3-8063-874cc5c7ccf0/auto-setup HTTP/1.1[0m" 500 -
+Traceback (most recent call last):
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask/app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask/app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask_cors/extension.py", line 176, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+                                                ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/miniconda3/envs/quantum-battleship-IBM/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/shaurya_1/Documents/quantum-battleship-IBM/backend/app_quantum.py", line 136, in auto_setup
+    ai_positions = game.autoSetup()
+                   ^^^^^^^^^^^^^^^^
+AttributeError: 'QuantumBattleshipGame' object has no attribute 'autoSetup'
+ * Detected change in '/Users/shaurya_1/Documents/quantum-battleship-IBM/backend/app_quantum.py', reloading
+================================================================================
+ QUANTUM BATTLESHIP SERVER - IBM HACKATHON
+ Based on Elitzur-Vaidman Bomb Tester Experiment
+================================================================================
+
+ Server Information:
+   * Running on: http://127.0.0.1:5001
+   * Quantum Backend: Qiskit AerSimulator
+   * Circuit Configuration: 5 qubits, 5 classical bits
+   * Measurements per attack: 1024 shots
+
+ Quantum Features:
+   * 5-qubit quantum circuit (one per grid position)
+   * RY gate rotations (pi/8 angle)
+   * Elitzur-Vaidman bomb tester principle
+   * Ship detection through quantum interference
+   * Probabilistic damage calculation
+
+================================================================================
+
+
+================================================================================
+NEW GAME CREATED
+================================================================================
+Game ID: 2691b397-5800-4b9f-8826-7b922ab2d373
+Grid Configuration: 5 positions (0, 1, 2, 3, 4)
+Ships per Player: 3
+Win Condition: Destroy all 3 enemy ships (>95% damage each)
+
+Quantum Circuit Setup:
+  * 5 qubits (one per grid position)
+  * 5 classical bits (for measurement)
+  * Backend: Qiskit AerSimulator
+  * Shots per measurement: 1024
+================================================================================
+
+
+================================================================================
+NEW GAME CREATED
+================================================================================
+Game ID: 4345fcca-1ba0-42b3-8063-874cc5c7ccf0
+Grid Configuration: 5 positions (0, 1, 2, 3, 4)
+Ships per Player: 3
+Win Condition: Destroy all 3 enemy ships (>95% damage each)
+
+Quantum Circuit Setup:
+  * 5 qubits (one per grid position)
+  * 5 classical bits (for measurement)
+  * Backend: Qiskit AerSimulator
+  * Shots per measurement: 1024
+================================================================================
+
+
+================================================================================
+NEW GAME CREATED
+================================================================================
+Game ID: 0ab390be-8605-4fdc-853f-c03ccee72ed3
+Grid Configuration: 5 positions (0, 1, 2, 3, 4)
+Ships per Player: 3
+Win Condition: Destroy all 3 enemy ships (>95% damage each)
+
+Quantum Circuit Setup:
+  * 5 qubits (one per grid position)
+  * 5 classical bits (for measurement)
+  * Backend: Qiskit AerSimulator
+  * Shots per measurement: 1024
+================================================================================
+
+
+================================================================================
+NEW GAME CREATED
+================================================================================
+Game ID: 17c16dec-54d3-4cdf-9505-1a6362b12d73
+Grid Configuration: 5 positions (0, 1, 2, 3, 4)
+Ships per Player: 3
+Win Condition: Destroy all 3 enemy ships (>95% damage each)
+
+Quantum Circuit Setup:
+  * 5 qubits (one per grid position)
+  * 5 classical bits (for measurement)
+  * Backend: Qiskit AerSimulator
+  * Shots per measurement: 1024
+================================================================================
+
+
+--------------------------------------------------------------------------------
+SHIP PLACEMENT - Player 1
+--------------------------------------------------------------------------------
+Ship Positions: [1, 3, 4]
+Valid Placement: True
+--------------------------------------------------------------------------------
+
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 138-095-945
+127.0.0.1 - - [15/Nov/2025 13:52:59] "OPTIONS /api/quantum/game/new HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:52:59] "OPTIONS /api/quantum/game/new HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:52:59] "[35m[1mPOST /api/quantum/game/new HTTP/1.1[0m" 201 -
+127.0.0.1 - - [15/Nov/2025 13:52:59] "[35m[1mPOST /api/quantum/game/new HTTP/1.1[0m" 201 -
+127.0.0.1 - - [15/Nov/2025 13:53:00] "OPTIONS /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/set-ships HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:53:00] "POST /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/set-ships HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:53:00] "OPTIONS /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/auto-setup HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:53:00] "POST /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/auto-setup HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:53:02] "OPTIONS /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/bomb HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:53:02] "POST /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/bomb HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:53:07] "OPTIONS /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/bomb HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2025 13:53:07] "POST /api/quantum/game/a17ac021-dab2-4d66-afc7-309d12f8b96e/bomb HTTP/1.1" 200 -
+============================================================
+ Quantum Battleship Server - Hackathon Implementation
+   Based on Elitzur-Vaidman bomb tester experiment
+============================================================
+
+ Server starting on http://localhost:5000
+ API documentation available at http://localhost:5000/
+
+  Quantum Features:
+   • 5-qubit quantum circuit
+   • Elitzur-Vaidman bomb tester principle
+   • Ship detection through quantum interference
+   • Damage calculation from quantum measurements
+
+============================================================
+

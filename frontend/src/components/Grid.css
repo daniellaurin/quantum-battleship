@@ -1,0 +1,112 @@
+/* src/components/Grid.css */
+.quantum-grid-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+}
+
+.grid-title {
+  color: white;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(0, 119, 190, 0.8);
+}
+
+.quantum-grid {
+  display: flex;
+  gap: 15px;
+  padding: 20px;
+  background: rgba(0, 119, 190, 0.2);
+  border-radius: 10px;
+  border: 3px solid #0077be;
+  box-shadow: 0 0 20px rgba(0, 119, 190, 0.5);
+}
+
+.quantum-cell {
+  width: 100px;
+  height: 120px;
+  background: linear-gradient(135deg, #f0f8ff 0%, #add8e6 100%);
+  border: 3px solid #0077be;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quantum-cell:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 119, 190, 0.4);
+  background: linear-gradient(135deg, #0077be 0%, #005fa3 100%);
+}
+
+.quantum-cell.has-ship {
+  background: linear-gradient(135deg, #0077be 0%, #005fa3 100%);
+  color: white;
+  font-size: 2em;
+}
+
+.quantum-cell.selected {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  animation: pulse 1s infinite;
+}
+
+.quantum-cell.damaged {
+  background: linear-gradient(135deg, #ffa500 0%, #ff8c00 100%);
+  color: white;
+}
+
+.quantum-cell.critical {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+  color: white;
+  animation: shake 0.5s;
+}
+
+.quantum-cell.destroyed {
+  background: linear-gradient(135deg, #2d3436 0%, #636e72 100%);
+  color: white;
+  opacity: 0.7;
+}
+
+.cell-label {
+  font-size: 0.7em;
+  font-weight: bold;
+  color: #0077be;
+  margin-bottom: 5px;
+}
+
+.quantum-cell.has-ship .cell-label,
+.quantum-cell.damaged .cell-label,
+.quantum-cell.critical .cell-label,
+.quantum-cell.destroyed .cell-label {
+  color: white;
+}
+
+.cell-content {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 1);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}

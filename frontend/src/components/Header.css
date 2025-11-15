@@ -1,0 +1,53 @@
+/* src/components/Header.css */
+.app-header {
+  background-color: #f0f8ff;
+  padding: 20px;
+  color: #0077be;
+  border-bottom: 2px solid #0077be;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 100;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  text-shadow: 0 0 10px #add8e6;
+  background: linear-gradient(90deg, #0077be, #6a0dad, #0077be);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: synthwave-gradient 5s ease infinite;
+}
+
+@keyframes synthwave-gradient {
+  0% {
+    background-position: 200% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.logo-button {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.qiskit-logo {
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.logo-button:hover .qiskit-logo {
+  transform: rotate(180deg);
+}
