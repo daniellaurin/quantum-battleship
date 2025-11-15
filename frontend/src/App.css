@@ -1,42 +1,243 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* src/App.css - COMPLETE FILE */
+.app {
+  width: 100vw;  /* Changed from 100% to 100vw */
+  min-height: 100vh;
+  height: 100%;
+  position: relative;
+  overflow-x: hidden;
+  background: linear-gradient(to bottom,
+    #87CEEB 0%,
+    #5BA3D0 30%,
+    #4A90E2 60%,
+    #3A7BC8 100%
+  );
+}
+
+.background-animations {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Clouds */
+.background-animations .cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 100px;
+  width: 120px;
+  height: 40px;
+  animation: float 20s infinite ease-in-out;
+  z-index: 1;
+}
+
+.background-animations .cloud::before,
+.background-animations .cloud::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 100px;
+}
+
+.background-animations .cloud::before {
+  width: 50px;
+  height: 50px;
+  top: -25px;
+  left: 10px;
+}
+
+.background-animations .cloud::after {
+  width: 60px;
+  height: 60px;
+  top: -30px;
+  right: 10px;
+}
+
+.background-animations .cloud:nth-child(1) {
+  top: 20%;
+  left: -150px;
+  animation-delay: 0s;
+  animation-duration: 25s;
+}
+
+.background-animations .cloud:nth-child(2) {
+  top: 30%;
+  left: -200px;
+  animation-delay: 5s;
+  animation-duration: 30s;
+  opacity: 0.6;
+}
+
+.background-animations .cloud:nth-child(3) {
+  top: 15%;
+  left: -100px;
+  animation-delay: 10s;
+  animation-duration: 35s;
+  opacity: 0.7;
+}
+
+@keyframes float {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw + 200px)); }
+}
+
+/* Birds */
+.birds {
+  position: absolute;
+  top: 15%;
+  left: -50px;
+  animation: flyAcross 20s infinite linear;
+  z-index: 2;
+}
+
+.birds::before,
+.birds::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 3px;
+  background: #34495e;
+  border-radius: 2px;
+}
+
+.birds::before {
+  transform-origin: right center;
+  animation: flapLeftWing 0.5s infinite ease-in-out;
+}
+
+.birds::after {
+  left: 18px;
+  transform-origin: left center;
+  animation: flapRightWing 0.5s infinite ease-in-out;
+}
+
+@keyframes flyAcross {
+  0% { left: -50px; top: 15%; }
+  25% { top: 12%; }
+  50% { top: 18%; }
+  75% { top: 14%; }
+  100% { left: calc(100vw + 50px); top: 15%; }
+}
+
+@keyframes flapLeftWing {
+  0%, 100% { transform: rotate(20deg); }
+  50% { transform: rotate(45deg); }
+}
+
+@keyframes flapRightWing {
+  0%, 100% { transform: rotate(-20deg); }
+  50% { transform: rotate(-45deg); }
+}
+
+/* Fish */
+.fish {
+  position: absolute;
+  bottom: 10%;
+  left: -400px;
+  width: 80px;
+  height: 30px;
+  animation: swim 30s linear infinite;
+  z-index: 2;
+}
+
+.fish::before {
+  content: "><((((°>";
+  color: white;
+  font-size: 24px;
+  line-height: 1;
+  position: absolute;
+  white-space: nowrap;
+}
+
+@keyframes swim {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(100vw + 400px)); }
+}
+
+/* Game container */
+.game-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-top: 100px;
+  min-height: 100vh;
+}
+
+.game-status {
+  margin-bottom: 30px;
+  padding: 15px 30px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  border: 3px solid #0077be;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.game-status h2 {
+  margin: 0;
+  color: #0077be;
+  text-align: center;
+  font-size: 1.5em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quantum-stats {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #0077be;
+  min-width: 250px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card h3 {
+  margin: 0 0 15px 0;
+  color: #0077be;
+  font-size: 1.2em;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.stat-card p {
+  margin: 8px 0;
+  color: #333;
+  font-size: 1em;
+  font-weight: 500;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.quantum-results {
+  text-align: left;
+  padding: 10px;
+}
+
+.quantum-results p {
+  margin: 10px 0;
+  font-size: 1em;
+  color: #333;
+}
+
+.quantum-results strong {
+  color: #0077be;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .quantum-stats {
+    flex-direction: column;
   }
-  to {
-    transform: rotate(360deg);
+
+  .game-status h2 {
+    font-size: 1.2em;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

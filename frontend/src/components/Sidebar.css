@@ -1,0 +1,38 @@
+/* src/components/Sidebar.css */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  width: 280px;
+  height: 100vh;
+  background-color: #f0f8ff;
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease-in-out;
+  z-index: 1000;
+  padding-top: 60px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+/* Scrollbar styling */
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #0077be;
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #005fa3;
+}

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+build/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+game_logs.txt
+detailed_logs.txt
+detailed_quantum_logs.txt
