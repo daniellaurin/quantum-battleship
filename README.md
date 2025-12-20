@@ -2,6 +2,8 @@
 
 Welcome to Quantum Battleship, a unique take on the classic naval combat game, infused with the fascinating principles of quantum mechanics! This project explores two distinct game modes: a traditional Battleship experience enhanced with a Quantum AI, and a specialized "Quantum Battleship" game based on the Elitzur-Vaidman bomb tester experiment.
 
+<img width="1728" height="995" alt="Screenshot 2025-12-19 at 7 25 50 AM" src="https://github.com/user-attachments/assets/6d4bccd5-ff8c-44fa-8651-e66ec393a139" />
+
 ## ✨ Features
 
 ### 🎮 Classic Battleship with Quantum AI
