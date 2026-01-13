@@ -1,0 +1,447 @@
+# Cell 1: COMPLETE GAME - No Quantum Simulator Needed
+
+import numpy as np
+import random
+import matplotlib.pyplot as plt
+import ipywidgets as widgets
+from IPython.display import display, clear_output
+
+print("🚀 Quantum Battleship - Classical Simulation Ready!")
+
+# ============================================================================
+# Quantum-like Detector (Classical Simulation)
+# ============================================================================
+class QuantumLikeDetector:
+    def __init__(self, grid_size=5):
+        self.grid_size = grid_size
+        
+    def simulate_quantum_behavior(self, bomb_position, ship_positions, shots=1024):
+        """
+        Simulate quantum-like behavior using classical probability
+        This mimics the Elitzur-Vaidman bomb tester concept
+        """
+        # Base probabilities for each position
+        base_probs = [0.1] * self.grid_size  # Low base probability
+        
+        # If bomb hits a ship, increase probability at that position (like quantum interaction)
+        if bomb_position in ship_positions:
+            base_probs[bomb_position] = 0.8  # High probability for direct interaction
+            
+            # Also create interference pattern - nearby positions get modified probabilities
+            for i in range(self.grid_size):
+                if i != bomb_position and abs(i - bomb_position) <= 1:  # Adjacent positions
+                    base_probs[i] = 0.4  # Medium probability due to interference
+        else:
+            # If no hit, still some quantum-like spreading effect
+            base_probs[bomb_position] = 0.3
+            for i in range(self.grid_size):
+                if i != bomb_position and abs(i - bomb_position) <= 1:
+                    base_probs[i] = 0.2
+        
+        # Add some random noise to simulate quantum uncertainty
+        noise = np.random.normal(0, 0.05, self.grid_size)
+        final_probs = np.clip([base_probs[i] + noise[i] for i in range(self.grid_size)], 0, 1)
+        
+        # Generate "measurement counts" based on probabilities
+        counts = {}
+        for _ in range(shots):
+            # Create a bitstring based on probabilities
+            bitstring = ''
+            for i in range(self.grid_size):
+                if random.random() < final_probs[i]:
+                    bitstring += '1'
+                else:
+                    bitstring += '0'
+            counts[bitstring] = counts.get(bitstring, 0) + 1
+        
+        return counts, final_probs
+    
+    def calculate_probabilities(self, counts):
+        """
+        Calculate probability of each position from measurement counts
+        """
+        total_shots = sum(counts.values())
+        probabilities = [0] * self.grid_size
+        
+        for bitstring, count in counts.items():
+            for pos in range(self.grid_size):
+                if bitstring[self.grid_size - 1 - pos] == '1':
+                    probabilities[pos] += count
+        
+        return [prob / total_shots for prob in probabilities]
+
+print("✅ Quantum-like Detector ready!")
+
+# ============================================================================
+# Game Logic Class
+# ============================================================================
+class QuantumBattleship:
+    def __init__(self, grid_size=5):
+        self.grid_size = grid_size
+        self.player_ships = []
+        self.opponent_ships = []
+        self.bomb_history = []
+        self.detector = QuantumLikeDetector(grid_size)
+        self.round_number = 1
+        self.ship_damage = {i: 0 for i in range(grid_size)}
+        self.quantum_memory = {i: [] for i in range(grid_size)}  # Store historical probabilities
+        
+    def setShipPosition(self, player, positions):
+        """Store ship positions for a player"""
+        if len(positions) != 3:
+            raise ValueError("Exactly 3 ship positions required")
+        if any(pos >= self.grid_size for pos in positions):
+            raise ValueError(f"Positions must be between 0 and {self.grid_size-1}")
+        
+        if player == "player":
+            self.player_ships = positions
+        else:
+            self.opponent_ships = positions
+            
+    def bombShip(self, position):
+        """Record bomb position and return if it's a direct hit"""
+        if position < 0 or position >= self.grid_size:
+            raise ValueError(f"Bomb position must be between 0 and {self.grid_size-1}")
+            
+        self.bomb_history.append(position)
+        is_hit = position in self.opponent_ships
+        
+        print(f"💣 Bomb dropped at position {position}")
+        if is_hit:
+            print("💥 DIRECT HIT! Ship damaged!")
+            # Add extra damage for direct hits
+            self.ship_damage[position] = min(100, self.ship_damage[position] + 40)
+        else:
+            print("💧 Missed the target.")
+            
+        return is_hit
+    
+    def quantum_scan(self, bomb_position):
+        """Perform quantum-like detection scan"""
+        print("🔄 Running quantum-like detection...")
+        
+        counts, direct_probs = self.detector.simulate_quantum_behavior(
+            bomb_position, 
+            self.opponent_ships
+        )
+        
+        probabilities = self.detector.calculate_probabilities(counts)
+        
+        # Update quantum memory
+        for i, prob in enumerate(probabilities):
+            self.quantum_memory[i].append(prob)
+        
+        # Update cumulative damage based on quantum detection
+        for i, prob in enumerate(probabilities):
+            damage_increase = prob * 25  # Scale factor
+            self.ship_damage[i] = min(100, self.ship_damage[i] + damage_increase)
+        
+        return probabilities, counts, direct_probs
+    
+    def calculateDamageToShips(self):
+        """Calculate damage percentage for each ship"""
+        ship_damage = {}
+        for ship_pos in self.opponent_ships:
+            ship_damage[ship_pos] = min(100, self.ship_damage[ship_pos])
+            
+        return ship_damage
+    
+    def get_quantum_trend(self, position):
+        """Get the trend of quantum probabilities for a position"""
+        if len(self.quantum_memory[position]) < 2:
+            return "stable"
+        recent = self.quantum_memory[position][-3:]
+        if len(recent) < 2:
+            return "stable"
+        trend = np.polyfit(range(len(recent)), recent, 1)[0]
+        if trend > 0.05:
+            return "increasing"
+        elif trend < -0.05:
+            return "decreasing"
+        else:
+            return "stable"
+    
+    def check_game_over(self, damage_threshold=95):
+        """Check if all opponent ships are destroyed"""
+        if not self.opponent_ships:
+            return False
+            
+        # Check if all opponent ships have high damage
+        ship_damages = [self.ship_damage[pos] for pos in self.opponent_ships]
+        if all(damage >= damage_threshold for damage in ship_damages):
+            return True
+            
+        return False
+    
+    def get_game_state(self):
+        """Return current game state"""
+        return {
+            'player_ships': self.player_ships,
+            'opponent_ships': self.opponent_ships,
+            'bomb_history': self.bomb_history,
+            'round_number': self.round_number,
+            'ship_damage': self.ship_damage
+        }
+
+print("✅ Game Logic ready!")
+
+# ============================================================================
+# Visualization Class
+# ============================================================================
+class BattlefieldVisualizer:
+    def __init__(self, grid_size=5):
+        self.grid_size = grid_size
+        
+    def display_battlefield(self, player_ships, bomb_history, damage_probs=None):
+        """Display the battlefield with ships and bomb history"""
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 4))
+        
+        # Left plot: Ship positions and bomb hits
+        ax1.set_title("🎯 Battlefield - Your Ships & Attacks")
+        ax1.set_xlim(-0.5, self.grid_size - 0.5)
+        ax1.set_ylim(-0.5, 0.5)
+        ax1.set_xlabel("Grid Position")
+        ax1.get_yaxis().set_visible(False)
+        
+        # Plot your ships
+        for ship in player_ships:
+            ax1.plot(ship, 0, 'gs', markersize=20, label='Your Ship' if ship == player_ships[0] else "")
+        
+        # Plot bomb history (hits and misses)
+        hits = [bomb for bomb in bomb_history if bomb in player_ships]
+        misses = [bomb for bomb in bomb_history if bomb not in player_ships]
+        
+        for hit in hits:
+            ax1.plot(hit, 0, 'rx', markersize=15, markeredgewidth=3, label='Hit on Your Ship' if hit == hits[0] else "")
+        
+        for miss in misses:
+            ax1.plot(miss, 0.1, 'bo', markersize=8, alpha=0.7, label='Miss' if miss == misses[0] else "")
+        
+        ax1.legend()
+        ax1.grid(True, alpha=0.3)
+        
+        # Right plot: Damage probabilities
+        if damage_probs is not None:
+            colors = ['lightcoral' if prob < 0.5 else 'red' for prob in damage_probs]
+            ax2.bar(range(self.grid_size), damage_probs, color=colors, alpha=0.7)
+            ax2.set_title("📊 Quantum Damage Probabilities")
+            ax2.set_xlabel("Grid Position")
+            ax2.set_ylabel("Damage Probability")
+            ax2.set_ylim(0, 1)
+            ax2.grid(True, alpha=0.3)
+            
+            # Highlight actual ship positions
+            for ship in player_ships:
+                ax2.bar(ship, damage_probs[ship], color='darkred', alpha=0.9, label='Enemy Ship' if ship == player_ships[0] else "")
+            
+            if player_ships:  # Add legend only if there are ships
+                ax2.legend()
+        
+        plt.tight_layout()
+        plt.show()
+    
+    def display_quantum_results(self, counts):
+        """Display quantum measurement results"""
+        plt.figure(figsize=(10, 4))
+        
+        # Convert counts to probabilities
+        total = sum(counts.values())
+        # Get top 8 states for clarity
+        sorted_counts = sorted(counts.items(), key=lambda x: x[1], reverse=True)[:8]
+        states = [item[0] for item in sorted_counts]
+        probabilities = [item[1]/total for item in sorted_counts]
+        
+        plt.bar(states, probabilities, color='skyblue')
+        plt.title("Quantum-like Measurement Results (Top 8 States)")
+        plt.xlabel("Measurement States")
+        plt.ylabel("Probability")
+        plt.xticks(rotation=45)
+        plt.grid(True, alpha=0.3)
+        plt.show()
+    
+    def display_damage_map(self, damage_probs, cumulative_damage, quantum_trends=None):
+        """Display ASCII damage map"""
+        print("\n" + "="*70)
+        print("                   QUANTUM DAMAGE MAP")
+        print("="*70)
+        
+        for i, (prob, cum_damage) in enumerate(zip(damage_probs, cumulative_damage)):
+            bar = "█" * int(prob * 20)
+            damage_bar = "█" * int(cum_damage/5)
+            spaces = " " * (20 - len(bar))
+            damage_spaces = " " * (20 - len(damage_bar))
+            
+            trend_symbol = "↗️" if quantum_trends and quantum_trends[i] == "increasing" else "↘️" if quantum_trends and quantum_trends[i] == "decreasing" else "➡️"
+            
+            print(f"Position {i}: {trend_symbol} Prob |{bar}{spaces}| {prob*100:5.1f}%")
+            print(f"           Cumul |{damage_bar}{damage_spaces}| {cum_damage:5.1f}%")
+            print("")
+            
+        print("="*70)
+        print("💡 Legend: ↗️ = Increasing probability, ↘️ = Decreasing, ➡️ = Stable")
+
+print("✅ Visualization ready!")
+
+# ============================================================================
+# Game Setup
+# ============================================================================
+
+# Initialize game
+game = QuantumBattleship()
+visualizer = BattlefieldVisualizer()
+
+# Setup ships randomly
+player_ships = random.sample(range(5), 3)
+opponent_ships = random.sample(range(5), 3)
+
+game.setShipPosition("player", player_ships)
+game.setShipPosition("opponent", opponent_ships)
+
+print("🎯 Quantum Battleship Game Initialized!")
+print("Based on Elitzur-Vaidman Bomb Tester Principle (Classical Simulation)")
+print(f"Your ships are at positions: {player_ships}")
+print("Opponent ships are hidden (quantum-like superposition)")
+print("\nGame Rules:")
+print("- Drop bombs to detect enemy ships")
+print("- Quantum-like scanning reveals damage probabilities") 
+print("- Destroy all 3 enemy ships to win!")
+print("- Enemy ships are at random positions")
+print("\n💡 Strategy: Look for positions with consistently high damage probabilities and increasing trends!")
+
+# ============================================================================
+# Interactive Game Interface
+# ============================================================================
+
+# Create interactive widgets
+bomb_position = widgets.IntSlider(
+    value=2,
+    min=0,
+    max=4,
+    step=1,
+    description='Bomb Position:',
+    continuous_update=False,
+    style={'description_width': 'initial'}
+)
+
+fire_button = widgets.Button(
+    description="💣 FIRE BOMB!",
+    button_style='danger',
+    tooltip='Drop a bomb at selected position',
+    layout=widgets.Layout(width='150px')
+)
+
+quantum_scan_button = widgets.Button(
+    description="🔍 QUANTUM SCAN",
+    button_style='info',
+    tooltip='Perform quantum scan without bombing',
+    layout=widgets.Layout(width='150px')
+)
+
+reset_button = widgets.Button(
+    description="🔄 NEW GAME",
+    button_style='warning',
+    tooltip='Start a new game',
+    layout=widgets.Layout(width='150px')
+)
+
+output = widgets.Output()
+
+def on_fire_button_clicked(b):
+    with output:
+        clear_output()
+        pos = bomb_position.value
+        
+        print(f"\n🎯 Round {game.round_number}")
+        print("="*50)
+        
+        # Drop bomb
+        is_hit = game.bombShip(pos)
+        
+        # Quantum detection
+        damage_probs, counts, direct_probs = game.quantum_scan(pos)
+        ship_damage = game.calculateDamageToShips()
+        
+        # Get cumulative damage and trends for display
+        cumulative_damage = [game.ship_damage[i] for i in range(5)]
+        quantum_trends = [game.get_quantum_trend(i) for i in range(5)]
+        
+        # Display results
+        print(f"\n📊 Quantum Detection Results:")
+        for ship_pos, damage in ship_damage.items():
+            status = "💀 DESTROYED" if damage >= 95 else "🚨 CRITICAL" if damage >= 70 else "💥 HEAVY" if damage >= 50 else "⚠️  DAMAGED"
+            trend = quantum_trends[ship_pos]
+            trend_symbol = "↗️" if trend == "increasing" else "↘️" if trend == "decreasing" else "➡️"
+            print(f"   Ship at position {ship_pos}: {damage:5.1f}% - {status} {trend_symbol}")
+        
+        # Visualize
+        visualizer.display_battlefield(player_ships, game.bomb_history, damage_probs)
+        visualizer.display_damage_map(damage_probs, cumulative_damage, quantum_trends)
+        
+        # Check game over
+        if game.check_game_over():
+            print("\n🎉 VICTORY! All enemy ships destroyed!")
+            print("🏆 You won using quantum-like detection!")
+            print("💡 The Elitzur-Vaidman quantum effect was simulated to detect ships!")
+            fire_button.disabled = True
+            quantum_scan_button.disabled = True
+        else:
+            game.round_number += 1
+
+def on_scan_button_clicked(b):
+    with output:
+        clear_output()
+        print("\n🔍 Performing Quantum Scan (No Bomb)...")
+        pos = bomb_position.value
+        damage_probs, counts, direct_probs = game.quantum_scan(pos)
+        
+        cumulative_damage = [game.ship_damage[i] for i in range(5)]
+        quantum_trends = [game.get_quantum_trend(i) for i in range(5)]
+        
+        print("Quantum scan complete! (No bomb dropped)")
+        visualizer.display_quantum_results(counts)
+        visualizer.display_damage_map(damage_probs, cumulative_damage, quantum_trends)
+
+def on_reset_button_clicked(b):
+    with output:
+        clear_output()
+        print("Starting new game...")
+        
+        # Reinitialize game
+        global game
+        game = QuantumBattleship()
+        
+        # New random ship positions
+        new_player_ships = random.sample(range(5), 3)
+        new_opponent_ships = random.sample(range(5), 3)
+        
+        game.setShipPosition("player", new_player_ships)
+        game.setShipPosition("opponent", new_opponent_ships)
+        
+        # Enable buttons
+        fire_button.disabled = False
+        quantum_scan_button.disabled = False
+        
+        print("🔄 New game started!")
+        print(f"Your ships are at positions: {new_player_ships}")
+        print("Enemy ships are hidden...")
+
+# Connect buttons to functions
+fire_button.on_click(on_fire_button_clicked)
+quantum_scan_button.on_click(on_scan_button_clicked)
+reset_button.on_click(on_reset_button_clicked)
+
+# Display widgets
+print("\n🎮 Game Controls:")
+display(bomb_position)
+display(widgets.HBox([fire_button, quantum_scan_button, reset_button]))
+display(output)
+
+print("\n💡 How to play:")
+print("1. Select bomb position with slider (0-4)")
+print("2. Click 'FIRE BOMB' to attack and perform quantum scan")
+print("3. Click 'QUANTUM SCAN' to scan without attacking") 
+print("4. Look for positions with:")
+print("   - High cumulative damage")
+print("   - Increasing probability trends (↗️)")
+print("   - Consistently high damage probabilities")
+print("5. Click 'NEW GAME' to restart")
